@@ -1,8 +1,6 @@
 import {useEffect, useState} from 'react';
 import YouTubePlayer from './YouTubePlayer';
 
-const YOUTUBE_API_KEY = 'AIzaSyBu_YuINLJ7N2sHZvbjOfPOTlAYtuBH65c';
-
 interface Video {
   title: string;
   videoId: string;
@@ -63,10 +61,9 @@ const YoutubeList = ({query}: Props) => {
 
     const fetchYouTubeVideos = async () => {
       try {
+        // 👉 백엔드 서버를 통해 안전하게 요청
         const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
-            keyWord
-          )}&type=video&maxResults=5&key=${YOUTUBE_API_KEY}`
+          `http://localhost:3001/api/youtube?q=${encodeURIComponent(keyWord)}`
         );
 
         const data: YouTubeSearchResponse = await res.json();
